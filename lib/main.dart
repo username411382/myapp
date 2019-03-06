@@ -9,10 +9,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
         title: 'FlutterDemo',
-        routes: <String, WidgetBuilder>{
+       /* routes: <String, WidgetBuilder>{
           //配置路径
           '/home_page': (BuildContext context) => new HomePage(),
-        },
-        home: new SplashPage());
+        },*/
+        home: new HomePage());
   }
 }
