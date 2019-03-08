@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/grid.dart';
 import 'package:myapp/list_view.dart';
+import 'package:myapp/signature.dart';
+import 'package:myapp/toast.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -17,10 +21,7 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 5.0),
                 child: TextMainTitle(),
               ),
-              new Text(
-                "subTitle",
-                style: new TextStyle(color: Color(0xFF880E4F)),
-              ),
+              new SubTextTitle(),
             ],
           )),
           new Image.asset(
@@ -29,7 +30,13 @@ class HomePage extends StatelessWidget {
             width: 20,
             fit: BoxFit.cover,
           ),
-          new Text("41"),
+          new GestureDetector(
+            child: new Text("41",style: new TextStyle(fontSize: 35.0),),
+            onTap: () {
+              Toast.toast(context,"哈哈啊哈");
+              Navigator.push(context, MaterialPageRoute(builder: (_) => Signature()));
+            },
+          ),
         ],
       ),
     );
@@ -248,6 +255,39 @@ class _ListView extends State<TextMainTitle> {
   }
 }
 
+class SubTextTitle extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _SubTextTitleState();
+  }
+}
+
+class _SubTextTitleState extends State<SubTextTitle> {
+  String subTextContent = "subTitle";
+
+  void _updateSubText() {
+    setState(() {
+      subTextContent = subTextContent == "哈哈哈" ? "subTitle" : "哈哈哈";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new RaisedButton(
+      onPressed: _updateSubText,
+      child: new Container(
+        child: new Text(subTextContent),
+      ),
+      color: Colors.blue,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+    );
+  }
+}
+
 class CircleStack extends StatefulWidget {
   @override
   State createState() {
@@ -281,4 +321,13 @@ class _CircleStack extends State<CircleStack> {
       ],
     );
   }
+}
+
+get() async {
+  var httpClient = new HttpClient();
+
+  var uri = new Uri.http("", "", null);
+  var request = await httpClient.getUrl(uri);
+  var response = await request.close();
+  //var responseBody = await response.transform(UT).join();
 }
